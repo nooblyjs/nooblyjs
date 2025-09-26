@@ -51,7 +51,6 @@ function patchEmitter(eventEmitter) {
 // Initiate the service Registry
 const serviceRegistry = require('nooblyjs-core');
 serviceRegistry.initialize(app,eventEmitter);
-
 const log = serviceRegistry.logger('console');
 const cache = serviceRegistry.cache('memory');
 const dataserve = serviceRegistry.dataServe('memory');
@@ -63,6 +62,11 @@ const measuring = serviceRegistry.measuring('memory');
 const notifying = serviceRegistry.notifying('memory');
 const worker = serviceRegistry.working('memory');
 const workflow = serviceRegistry.workflow('memory');
+
+// Initiate the content Registry
+const contentRegistry = require('nooblyjs-apps-content');
+contentRegistry.initialize(app,eventEmitter,serviceRegistry)
+
 
 // Authentication routes
 const authRoutes = require('./src/auth/routes');
