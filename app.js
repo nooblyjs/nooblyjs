@@ -24,14 +24,20 @@ app.use(bodyParser.json({ limit: '100mb' }));
 app.use(express.json({ limit: '100mb' }));
 app.use(express.urlencoded({ extended: true, limit: '100mb' }));
 
+// Options
+var options = { 
+  logDir:  path.join(__dirname, './.noobly-core/', 'logs'),
+  dataDir : path.join(__dirname, './.noobly-core/', 'data')
+};
+
 // initiate the event mechanism
 const eventEmitter = new EventEmitter()
 
 // Initiate the service Registry
 const serviceRegistry = require('nooblyjs-core');
-serviceRegistry.initialize(app,eventEmitter);
+serviceRegistry.initialize(app, eventEmitter, options);
 
-const log = serviceRegistry.logger('console');
+const log = serviceRegistry.logger('file');
 const cache = serviceRegistry.cache('memory');
 const dataserve = serviceRegistry.dataService('memory');
 const filing = serviceRegistry.filing('local');
@@ -44,11 +50,11 @@ const worker = serviceRegistry.working('memory');
 const workflow = serviceRegistry.workflow('memory');
 
 // instantiate an auth service
-const authservice = serviceRegistry.authservice('memory');
+const authservice = serviceRegistry.authservice('file');
 
 // Initiate the content Registry
 const wiki = require('nooblyjs-app-wiki');
-wiki(app, server, eventEmitter, serviceRegistry,{});
+wiki(app, server, eventEmitter, serviceRegistry, options);
 
 // Initiate the content Registry
 //const blog = require('nooblyjs-apps-blog');
