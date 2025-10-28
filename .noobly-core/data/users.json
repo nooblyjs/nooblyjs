@@ -1,0 +1,12 @@
+{
+  "administrator": {
+    "id": "co106j2sqmh24dwry",
+    "username": "administrator",
+    "email": "admin@localhost",
+    "password": "914738656a6cca304093fb83de37d3187f8df759943c218b2d89a23754ab0c2e",
+    "role": "admin",
+    "createdAt": "2025-10-22T15:00:09.646Z",
+    "lastLogin": null,
+    "isActive": true
+  }
+}
