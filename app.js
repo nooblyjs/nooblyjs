@@ -64,7 +64,7 @@ const wiki = require('nooblyjs-app-wiki');
 wiki(app, server, eventEmitter, serviceRegistry, options);
 
 // Initiate the content Registry
-//const blog = require('nooblyjs-apps-blog');
+const blog = require('nooblyjs-apps-blog');
 //blog(app,eventEmitter,serviceRegistry)
 
 // Launch the application manager
