@@ -1,15 +1,15 @@
 {
   "index": {
     "meta": {
-      "title": "NooblyJS Core - Modular Node.js Backend Services Framework",
+      "title": "Noobly- Modular Node.js Backend Services Framework",
       "description": "A comprehensive suite of 13+ modular backend services for building scalable Node.js applications with ease"
     },
     "hero": {
-      "title": "NooblyJS Core",
+      "title": "Noobly",
       "subtitle": "Enterprise-Grade Modular Node.js Backend Services - Build Scalable Applications with 13+ Integrated Services",
       "image": {
         "src": "images/nooblyjs-profile.png",
-        "alt": "NooblyJS Core - Modular Backend Services Framework"
+        "alt": "Noobly - Modular Backend Services Framework"
       },
       "buttons": [
         {
@@ -201,7 +201,7 @@
         "description": "Subscribe to our newsletter for the latest updates and features.",
         "placeholder": "Enter your email"
       },
-      "copyright": "© 2024 Noobly JS. All rights reserved.",
+      "copyright": "© 2024 Noobly. All rights reserved.",
       "legalLinks": [
         { "text": "Privacy Policy", "href": "#" },
         { "text": "Terms of Service", "href": "#" },
@@ -211,13 +211,13 @@
   },
   "documentation": {
     "meta": {
-      "title": "Documentation - Noobly JS",
-      "description": "Comprehensive documentation and guides for getting started with Noobly JS framework and all its services."
+      "title": "Documentation - Noobly",
+      "description": "Comprehensive documentation and guides for getting started with Noobly framework and all its services."
     },
     "hero": {
       "badge": "📚 Documentation",
       "title": "Documentation",
-      "description": "Comprehensive documentation and guides for getting started with Noobly JS framework and all its services.",
+      "description": "Comprehensive documentation and guides for getting started with Noobly framework and all its services.",
       "buttons": [
         {
           "text": "Quick Start",
