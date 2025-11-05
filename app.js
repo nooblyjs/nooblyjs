@@ -35,7 +35,14 @@ const eventEmitter = new EventEmitter()
 
 // Initiate the service Registry
 const serviceRegistry = require('nooblyjs-core');
-serviceRegistry.initialize(app, eventEmitter, options);
+serviceRegistry.initialize(app, eventEmitter, {
+  ...options,
+  security: {
+    servicesAuth: {
+      requireLogin: false
+    }
+  }
+});
 
 const log = serviceRegistry.logger('file');
 const cache = serviceRegistry.cache('memory');
@@ -63,6 +70,6 @@ wiki(app, server, eventEmitter, serviceRegistry, options);
 // Launch the application manager
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.listen(process.env.PORT || 3003, () => {
-  log.info(`Nooblyjs Content Server running on port ${process.env.PORT || 3003}`);
+app.listen(process.env.PORT || 3000, () => {
+  log.info(`Nooblyjs Content Server running on port ${process.env.PORT || 3000}`);
 });
