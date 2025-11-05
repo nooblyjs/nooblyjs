@@ -3,10 +3,6 @@ module.exports = function createWarehouseApplication(options, eventEmitter, serv
         name: 'warehouse',
         version: '1.0.0',
         
-        log: serviceRegistry.logger('console'),
-        cache: serviceRegistry.cache('memory'),
-        dataserve: serviceRegistry.dataServe('memory'),
-        
         initialize() {
             this.setupRoutes();
             this.registerEventHandlers();

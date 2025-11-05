@@ -27,7 +27,8 @@ app.use(express.urlencoded({ extended: true, limit: '100mb' }));
 // Options
 var options = { 
   logDir:  path.join(__dirname, './.noobly-core/', 'logs'),
-  dataDir : path.join(__dirname, './.noobly-core/', 'data')
+  dataDir : path.join(__dirname, './.noobly-core/', 'data'),
+  'express-app': app 
 };
 
 // initiate the event mechanism
@@ -69,6 +70,13 @@ const blog = require('nooblyjs-apps-blog');
 
 // Launch the application manager
 app.use(express.static(path.join(__dirname, 'public')));
+
+// load test UI's
+const customerService = require('./ui/customerservice')(options,eventEmitter);
+const delivery = require('./ui/delivery')(options,eventEmitter);
+const infrastructure = require('./ui/infrastructure')(options,eventEmitter);
+const marketing = require('./ui/marketing')(options,eventEmitter);
+//const warehouse = require('./ui/warehouse')(options,eventEmitter);
 
 app.listen(process.env.PORT || 3000, () => {
   log.info(`Nooblyjs Content Server running on port ${process.env.PORT || 3000}`);
