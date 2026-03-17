@@ -8,6 +8,8 @@ The NooblyJS Applications system provides a unified foundation for developing, d
 
 ## Architecture
 
+![Architecture](nooblyjs-core-architecture.png)
+
 ### Core Components
 
 - **Application Registry**: Central orchestration layer for all business applications
