@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Runs - Factory</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .sidebar {
+            width: 200px;
+            background-color: var(--surface-sunken);
+            border-right: 1px solid var(--border);
+            min-height: 100vh;
+            padding: 20px 16px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+        }
+
+        .main-content {
+            margin-left: 200px;
+            padding: var(--spacing-3xl);
+            background-color: var(--bg);
+        }
+
+        .nav-item {
+            margin-bottom: 8px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: var(--radius-md);
+            color: var(--ink-2);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: var(--ink);
+        }
+
+        .nav-link.active {
+            background-color: var(--ink);
+            color: var(--on-ink);
+            font-weight: 600;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 32px;
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 16px;
+            color: var(--ink);
+        }
+
+        .logo-circles {
+            display: flex;
+            gap: -6px;
+            position: relative;
+            width: 32px;
+            height: 16px;
+        }
+
+        .logo-circle {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+        }
+
+        .logo-circle-1 {
+            background-color: var(--accent);
+        }
+
+        .logo-circle-2 {
+            background-color: var(--teal);
+            margin-left: -6px;
+        }
+
+        .filter-pills {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-pill {
+            padding: 8px 14px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--ink);
+            background: var(--ink);
+            color: white;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 13px;
+            transition: all 0.2s ease;
+            font-family: var(--font-body);
+        }
+
+        .filter-pill:hover {
+            opacity: 0.9;
+        }
+
+        .filter-pill.active {
+            background: var(--ink);
+            color: white;
+            border-color: var(--ink);
+        }
+
+        .table th {
+            background-color: var(--surface-sunken);
+            border-bottom: 1px solid var(--border);
+            font-weight: 700;
+            color: var(--muted);
+            font-size: 12px;
+            padding: 14px;
+            text-align: left;
+            letter-spacing: 0.5px;
+        }
+
+        .table td {
+            padding: 14px;
+            border-bottom: 1px solid var(--divider);
+            font-size: 14px;
+            color: var(--ink);
+        }
+
+        .table tbody tr:hover {
+            background-color: rgba(242, 162, 126, 0.03);
+        }
+
+        .badge {
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            border-radius: var(--radius-sm);
+        }
+
+        .run-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-lg);
+            transition: all 0.3s ease;
+        }
+
+        .run-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+            cursor: pointer;
+        }
+
+        .run-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .run-title {
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--ink);
+        }
+
+        .run-meta {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-lg);
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .meta-label {
+            font-size: 12px;
+            color: var(--muted);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .meta-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: var(--radius-full);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-success {
+            background-color: #D1FAE5;
+            color: #065F46;
+        }
+
+        .status-running {
+            background-color: var(--accent-soft);
+            color: #8A3415;
+        }
+
+        .status-error {
+            background-color: #FEE2E2;
+            color: #991B1B;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="logo">
+        <div class="logo-circles">
+            <div class="logo-circle logo-circle-1"></div>
+            <div class="logo-circle logo-circle-2"></div>
+        </div>
+        <span>factory</span>
+    </div>
+
+    <nav class="nav-items">
+        <div class="nav-item">
+            <a href="Inbox.html" class="nav-link">
+                <i class="bi bi-inbox"></i>
+                Inbox
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="Runs.html" class="nav-link active">
+                <i class="bi bi-diagram-3"></i>
+                Runs
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="Campaigns.html" class="nav-link">
+                <i class="bi bi-bar-chart"></i>
+                Campaigns
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="Metrics.html" class="nav-link">
+                <i class="bi bi-graph-up"></i>
+                Metrics
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="The_line.html" class="nav-link">
+                <i class="bi bi-line-chart"></i>
+                The Line
+            </a>
+        </div>
+    </nav>
+
+    <div style="position: absolute; bottom: 20px; left: 20px; right: 20px;">
+        <div class="card">
+            <div class="card-body p-3">
+                <div style="font-size: 12px; color: var(--muted); margin-bottom: 8px;">Budget</div>
+                <div style="font-size: 24px; font-weight: 700; color: var(--ink); margin-bottom: 8px;">$2,100</div>
+                <div class="progress" style="height: 6px;">
+                    <div class="progress-bar" style="width: 60%;"></div>
+                </div>
+                <div style="font-size: 12px; color: var(--muted); margin-top: 8px;">$2,800 used</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+    <div class="mb-4">
+        <h1>Runs</h1>
+        <p class="lead">Track agent execution runs</p>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-lg); gap: var(--spacing-lg);">
+        <div class="filter-pills">
+            <button class="filter-pill active">All 12</button>
+            <button class="filter-pill">In progress 3</button>
+            <button class="filter-pill">Delivered 3</button>
+            <button class="filter-pill">Stopped 6</button>
+        </div>
+        <div style="display: flex; gap: var(--spacing-md); flex: 1; justify-content: flex-end;">
+            <input type="text" class="form-control" style="max-width: 280px;" placeholder="Search by title or run ID">
+            <button class="btn btn-primary">
+                <i class="bi bi-plus-lg"></i> New run
+            </button>
+        </div>
+    </div>
+
+    <!-- Runs Table -->
+    <div class="card">
+        <div style="overflow-x: auto;">
+            <table class="table mb-0">
+                <thead>
+                    <tr>
+                        <th style="width: 120px;">Run</th>
+                        <th style="width: 120px;">Status</th>
+                        <th style="width: 150px;">Where</th>
+                        <th>Title</th>
+                        <th style="width: 100px;">Cost</th>
+                        <th style="width: 100px;">Queued</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span style="color: var(--accent-link);">qa7-1c8d93</span></td>
+                        <td><span class="badge" style="background: #FEA8A8; color: #C41C1C;">● Building</span></td>
+                        <td>At build</td>
+                        <td>Add a multiply function</td>
+                        <td>$0.0412</td>
+                        <td>3m ago</td>
+                    </tr>
+                    <tr>
+                        <td><span style="color: var(--accent-link);">p2k-77ae10</span></td>
+                        <td><span class="badge" style="background: #FBBF24; color: #7C2D12;">● Needs you</span></td>
+                        <td>At approve</td>
+                        <td>Rename add.js to math.js</td>
+                        <td>$0.0001</td>
+                        <td>9m ago</td>
+                    </tr>
+                    <tr>
+                        <td><span style="color: var(--accent-link);">t9c-0b5e21</span></td>
+                        <td><span class="badge" style="background: #FCA5A5; color: #831010;">● Waiting</span></td>
+                        <td>At queued</td>
+                        <td>Add a divide function</td>
+                        <td>—</td>
+                        <td>2m ago</td>
+                    </tr>
+                    <tr>
+                        <td><span style="color: var(--accent-link);">534-c82106</span></td>
+                        <td><span class="badge" style="background: #FBCFE8; color: #9F1239;">● Interrupted</span></td>
+                        <td>Stopped at review</td>
+                        <td>Add a subtract function</td>
+                        <td>$0.0383</td>
+                        <td>16m ago</td>
+                    </tr>
+                    <tr>
+                        <td><span style="color: var(--accent-link);">zlq-f59ea4</span></td>
+                        <td><span class="badge" style="background: var(--teal-soft); color: var(--teal-text);">● Delivered</span></td>
+                        <td>Deliver</td>
+                        <td>Set up a Node CLI with a passing test</td>
+                        <td>$0.1566</td>
+                        <td>2h ago</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="padding: var(--spacing-lg); color: var(--muted); font-size: 13px; border-top: 1px solid var(--divider);">
+            Showing 5 of 12 · costs are per run, all stations included
+        </div>
+    </div>
+            <div class="run-header">
+                <div>
+                    <div class="run-title">Q4 Market Analysis</div>
+                    <div style="font-size: 14px; color: var(--muted); margin-top: 4px;">Started by Ada Quill</div>
+                </div>
+                <span class="status-badge status-success">
+                    <i class="bi bi-check-circle"></i> Completed
+                </span>
+            </div>
+            <div class="run-meta">
+                <div class="meta-item">
+                    <div class="meta-label">Duration</div>
+                    <div class="meta-value">42h 15m</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Tokens Used</div>
+                    <div class="meta-value">2.4M</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Cost</div>
+                    <div class="meta-value">$1,204</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Completed</div>
+                    <div class="meta-value">Oct 1, 4:30pm</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="run-card">
+            <div class="run-header">
+                <div>
+                    <div class="run-title">Customer Support Batch</div>
+                    <div style="font-size: 14px; color: var(--muted); margin-top: 4px;">Started by Milo Brightwater</div>
+                </div>
+                <span class="status-badge status-running">
+                    <i class="bi bi-arrow-repeat"></i> Running
+                </span>
+            </div>
+            <div class="run-meta">
+                <div class="meta-item">
+                    <div class="meta-label">Elapsed</div>
+                    <div class="meta-value">5h 42m</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Tokens Used</div>
+                    <div class="meta-value">856K</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Cost (est.)</div>
+                    <div class="meta-value">$428</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Started</div>
+                    <div class="meta-value">Oct 1, 10:45am</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="run-card">
+            <div class="run-header">
+                <div>
+                    <div class="run-title">Frontend Performance Audit</div>
+                    <div style="font-size: 14px; color: var(--muted); margin-top: 4px;">Started by Juno Park</div>
+                </div>
+                <span class="status-badge status-error">
+                    <i class="bi bi-x-circle"></i> Error
+                </span>
+            </div>
+            <div class="run-meta">
+                <div class="meta-item">
+                    <div class="meta-label">Duration</div>
+                    <div class="meta-value">1h 33m</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Tokens Used</div>
+                    <div class="meta-value">524K</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Cost</div>
+                    <div class="meta-value">$262</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Failed</div>
+                    <div class="meta-value">Oct 1, 8:15am</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

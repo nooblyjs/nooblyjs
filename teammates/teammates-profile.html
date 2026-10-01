@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ada Quill Profile - Factory Teammates</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="./styles.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            display: flex;
+        }
+
+        .sidebar {
+            width: 160px;
+            background-color: var(--surface-sunken);
+            border-right: 1px solid var(--border);
+            min-height: 100vh;
+            padding: 20px 16px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 32px;
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 16px;
+            color: var(--ink);
+        }
+
+        .logo-circles {
+            display: flex;
+            gap: -6px;
+            position: relative;
+            width: 32px;
+            height: 16px;
+        }
+
+        .logo-circle {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+        }
+
+        .logo-circle-1 {
+            background-color: var(--accent);
+        }
+
+        .logo-circle-2 {
+            background-color: var(--teal);
+            margin-left: -6px;
+        }
+
+        .nav-item {
+            margin-bottom: 8px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: var(--radius-md);
+            color: var(--ink-2);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: var(--ink);
+        }
+
+        .nav-link.active {
+            background-color: var(--ink);
+            color: var(--on-ink);
+            font-weight: 600;
+        }
+
+        .main-content {
+            margin-left: 160px;
+            padding: var(--spacing-3xl);
+            background-color: var(--bg);
+            flex: 1;
+        }
+
+        .breadcrumb {
+            font-size: 13px;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .breadcrumb a {
+            color: var(--accent-link);
+            text-decoration: none;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #FFD7C2 0%, #FADBD8 100%);
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            margin-bottom: var(--spacing-xl);
+            position: relative;
+        }
+
+        .hero-avatar {
+            width: 124px;
+            height: 124px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FFD7C2 0%, #FADBD8 100%);
+            border: 6px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 56px;
+            font-weight: 700;
+            color: white;
+            position: absolute;
+            top: 0;
+            left: 40px;
+            transform: translateY(-62px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .hero-content {
+            margin-left: 150px;
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+        }
+
+        .hero-info h1 {
+            font-size: 42px;
+            font-weight: 800;
+            font-family: var(--font-display);
+            color: #7A2E14;
+            margin-bottom: 8px;
+        }
+
+        .hero-meta {
+            font-size: 14px;
+            color: #8A3415;
+            margin-bottom: 12px;
+        }
+
+        .status-pill {
+            background: var(--teal-soft);
+            color: var(--teal-text);
+            padding: 6px 12px;
+            border-radius: var(--radius-full);
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-right: 8px;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--teal);
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-secondary {
+            background: var(--surface);
+            color: var(--ink);
+            border: 1px solid var(--border-strong);
+            padding: 10px 16px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 24px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .tab {
+            padding: 12px 0;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink-2);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .tab.active {
+            color: var(--ink);
+            border-bottom-color: var(--ink);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1.7fr 1fr;
+            gap: var(--spacing-lg);
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+        }
+
+        .card-title {
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--ink);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .skill-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-md) 0;
+            border-bottom: 1px solid var(--divider);
+        }
+
+        .skill-row:last-child {
+            border-bottom: none;
+        }
+
+        .skill-name {
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .skill-desc {
+            font-size: 13px;
+            color: var(--ink-2);
+            margin-bottom: 8px;
+        }
+
+        .level-meter {
+            display: flex;
+            gap: 2px;
+        }
+
+        .level-segment {
+            width: 20px;
+            height: 4px;
+            border-radius: 2px;
+            background: var(--divider);
+        }
+
+        .level-segment.filled {
+            background: var(--accent);
+        }
+
+        .level-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--muted);
+            text-align: center;
+        }
+
+        .model-card {
+            background: var(--ink);
+            color: var(--on-ink);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            text-align: center;
+        }
+
+        .model-badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--on-ink);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .model-name {
+            font-size: 28px;
+            font-weight: 800;
+            font-family: var(--font-display);
+            margin-bottom: 12px;
+        }
+
+        .cost-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            padding: 8px 0;
+        }
+
+        .cost-label {
+            color: var(--on-ink-muted);
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .table th {
+            background: var(--surface-sunken);
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--muted);
+            font-size: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .table td {
+            padding: 12px;
+            border: 1px solid var(--divider);
+        }
+
+        .table tbody tr:hover {
+            background: var(--bg);
+        }
+
+        .sidebar-footer {
+            position: absolute;
+            bottom: 20px;
+            left: 16px;
+            right: 16px;
+        }
+
+        .budget-mini {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 12px;
+            margin-bottom: 12px;
+            font-size: 12px;
+        }
+
+        .owner-block {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: var(--surface-sunken);
+            border-radius: var(--radius-md);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="logo">
+        <div class="logo-circles">
+            <div class="logo-circle logo-circle-1"></div>
+            <div class="logo-circle logo-circle-2"></div>
+        </div>
+        <span>Teammates</span>
+    </div>
+
+    <nav>
+        <div class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="bi bi-people"></i>
+                Team roster
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="#" class="nav-link active">
+                <i class="bi bi-person"></i>
+                Profiles
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="bi bi-wallet"></i>
+                Billing & timesheets
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="bi bi-person-plus"></i>
+                Hire a teammate
+            </a>
+        </div>
+    </nav>
+
+    <div class="sidebar-footer">
+        <div class="budget-mini" style="color: var(--ink-2);">
+            <strong>October budget</strong>
+            <div style="margin-top: 4px;">$264 of $9,000 used</div>
+        </div>
+
+        <div class="owner-block">
+            <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">S</div>
+            <div style="font-size: 12px;">
+                <div style="font-weight: 700; color: var(--ink);">Stevie</div>
+                <div style="color: var(--muted);">Team owner</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+    <div class="breadcrumb">
+        <a href="#">Team roster</a> / Ada Quill
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-avatar">A</div>
+        <div class="hero-content">
+            <div class="hero-info">
+                <h1>Ada Quill</h1>
+                <div class="hero-meta">
+                    <span class="status-pill"><span class="status-dot"></span>On a task</span>
+                    Q4 competitor scan
+                </div>
+                <div style="font-size: 14px; color: #8A3415;">Research Analyst · reports to Stevie · hired 14 March 2026</div>
+            </div>
+            <div class="hero-actions">
+                <button class="btn-secondary">Edit</button>
+                <button class="btn-secondary">Pause</button>
+                <button class="btn-primary">→ Assign work</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+        <div class="tab active">About</div>
+        <div class="tab">Skills</div>
+        <div class="tab">Memory</div>
+        <div class="tab">Model & cost</div>
+        <div class="tab">Timesheet</div>
+    </div>
+
+    <!-- Content Grid -->
+    <div class="content-grid">
+        <!-- Left Column -->
+        <div>
+            <!-- About Card -->
+            <div class="card" style="margin-bottom: var(--spacing-lg);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md);">
+                    <h2 class="card-title" style="margin: 0;">About Ada</h2>
+                    <button class="btn-secondary">Edit persona</button>
+                </div>
+                <p style="color: var(--ink-2); line-height: 1.6; margin-bottom: 12px;">
+                    Methodical researcher who cites every claim. Works best from a written brief with one clear question and a deadline. Flags low-confidence findings instead of guessing, and asks before spending more than two hours on a single question.
+                </p>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--divider);">
+                    <span class="skill" style="background: var(--chip); color: var(--ink); padding: 6px 10px; border-radius: var(--radius-sm); font-size: 12px;">Tone: plain & precise</span>
+                    <span class="skill" style="background: var(--chip); color: var(--ink); padding: 6px 10px; border-radius: var(--radius-sm); font-size: 12px;">Works 07:00–19:00 SAST</span>
+                    <span class="skill" style="background: var(--chip); color: var(--ink); padding: 6px 10px; border-radius: var(--radius-sm); font-size: 12px;">Needs approval over $200 / task</span>
+                </div>
+            </div>
+
+            <!-- Skills Card -->
+            <div class="card" style="margin-bottom: var(--spacing-lg);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md);">
+                    <h2 class="card-title" style="margin: 0;">Skills</h2>
+                    <button class="btn-secondary">Add skill</button>
+                </div>
+
+                <div class="skill-row">
+                    <div>
+                        <div class="skill-name">Deep research</div>
+                        <div class="skill-desc">Multi-source investigation with a cited summary</div>
+                    </div>
+                    <div>
+                        <div class="level-meter" style="margin-bottom: 4px;">
+                            <div class="level-segment filled"></div>
+                            <div class="level-segment filled"></div>
+                            <div class="level-segment filled"></div>
+                        </div>
+                        <div class="level-label">Expert</div>
+                    </div>
+                </div>
+
+                <div class="skill-row">
+                    <div>
+                        <div class="skill-name">Source checking</div>
+                        <div class="skill-desc">Verifies claims and flags weak or paywalled sources</div>
+                    </div>
+                    <div>
+                        <div class="level-meter" style="margin-bottom: 4px;">
+                            <div class="level-segment filled"></div>
+                            <div class="level-segment filled"></div>
+                            <div class="level-segment filled"></div>
+                        </div>
+                        <div class="level-label">Expert</div>
+                    </div>
+                </div>
+
+                <div class="skill-row">
+                    <div>
+                        <div class="skill-name">Market sizing</div>
+                        <div class="skill-desc">Top-down and bottom-up TAM estimates</div>
+                    </div>
+                    <div>
+                        <div class="level-meter" style="margin-bottom: 4px;">
+                            <div class="level-segment filled"></div>
+                            <div class="level-segment filled"></div>
+                            <div class="level-segment"></div>
+                        </div>
+                        <div class="level-label">Proficient</div>
+                    </div>
+                </div>
+
+                <div class="skill-row">
+                    <div>
+                        <div class="skill-name">Spreadsheet modelling</div>
+                        <div class="skill-desc">Builds simple forecast models · in training</div>
+                    </div>
+                    <div>
+                        <div class="level-meter" style="margin-bottom: 4px;">
+                            <div class="level-segment filled"></div>
+                            <div class="level-segment"></div>
+                            <div class="level-segment"></div>
+                        </div>
+                        <div class="level-label">Learning</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timesheet Card -->
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md);">
+                    <h2 class="card-title" style="margin: 0;">Timesheet · this week</h2>
+                    <a href="#" style="color: var(--accent-link); font-size: 13px;">All billing</a>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Day</th>
+                            <th>Task</th>
+                            <th>Hours</th>
+                            <th>Tokens</th>
+                            <th>Billed</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Mon 28 Sep</td>
+                            <td>Q4 competitor scan · scoping</td>
+                            <td>3.0h</td>
+                            <td>800k</td>
+                            <td>$144</td>
+                        </tr>
+                        <tr>
+                            <td>Tue 29 Sep</td>
+                            <td>Q4 competitor scan · 12 accounts</td>
+                            <td>5.5h</td>
+                            <td>1.7M</td>
+                            <td>$264</td>
+                        </tr>
+                        <tr>
+                            <td>Wed 30 Sep</td>
+                            <td>Pricing page teardown</td>
+                            <td>2.0h</td>
+                            <td>600k</td>
+                            <td>$96</td>
+                        </tr>
+                        <tr>
+                            <td>Thu 1 Oct</td>
+                            <td>Q4 competitor scan · summary</td>
+                            <td>4.0h</td>
+                            <td>1.2M</td>
+                            <td>$192</td>
+                        </tr>
+                        <tr style="font-weight: 700; background: var(--surface-sunken);">
+                            <td colspan="2">This week</td>
+                            <td>14.5h</td>
+                            <td>4.3M</td>
+                            <td>$696</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Right Column -->
+        <div>
+            <!-- Model & Cost Card -->
+            <div class="model-card" style="margin-bottom: var(--spacing-lg);">
+                <div class="model-badge">PREMIUM $$$</div>
+                <div class="model-name">Claude Opus</div>
+                <div style="border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 12px; margin-bottom: 12px;">
+                    <div class="cost-item">
+                        <span class="cost-label">Model compute</span>
+                        <span>$31 / hr</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="cost-label">Tools & memory</span>
+                        <span>$5 / hr</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="cost-label">Margin</span>
+                        <span>$12 / hr</span>
+                    </div>
+                </div>
+                <div class="cost-item" style="font-weight: 700; font-size: 16px;">
+                    <span class="cost-label">Billing rate</span>
+                    <span>$48 / hr</span>
+                </div>
+                <button class="btn-secondary" style="width: 100%; margin-top: 12px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: var(--on-ink);">Change model</button>
+            </div>
+
+            <!-- Memory Card -->
+            <div class="card" style="margin-bottom: var(--spacing-lg);">
+                <h2 class="card-title">Memory</h2>
+                <div style="margin-bottom: 12px;">
+                    <div style="font-size: 14px; font-weight: 700; color: var(--ink);">5 of 2,000 items</div>
+                    <div style="font-size: 13px; color: var(--ink-2); margin-top: 4px;">Personal memory</div>
+                </div>
+                <div style="display: flex; gap: 8px; margin-bottom: 12px; padding: 8px 0; border-bottom: 1px solid var(--divider);">
+                    <div style="display: flex; gap: 2px;">
+                        <div style="width: 12px; height: 12px; background: var(--accent); border-radius: 2px;"></div>
+                    </div>
+                    <div style="font-size: 12px; color: var(--ink-2);">
+                        <span style="font-weight: 600;">Facts</span>
+                        <span style="margin-left: 12px;">2</span>
+                    </div>
+                </div>
+                <div style="font-size: 13px; color: var(--ink-2);">
+                    <strong>Recently learned</strong>
+                </div>
+                <div style="margin-top: 12px; max-height: 200px; overflow-y: auto;">
+                    <div style="padding: 8px 0; border-bottom: 1px solid var(--divider); font-size: 13px;">
+                        <div style="color: var(--ink); line-height: 1.4;">Summaries for Stevie stay under 300 words, bullets first.</div>
+                        <div style="font-size: 12px; color: var(--muted); margin-top: 4px;">Preference · learned Tue</div>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--divider);">
+                    <button class="btn-secondary" style="flex: 1;">Review memory</button>
+                    <button class="btn-secondary" style="flex: 1; background: #FEE2E2; color: #991B1B; border: none;">Reset</button>
+                </div>
+            </div>
+
+            <!-- Billed Card -->
+            <div class="card">
+                <h2 class="card-title">Billed · last 30 days</h2>
+                <div style="text-align: center; margin-bottom: 12px;">
+                    <div style="font-size: 32px; font-weight: 800; font-family: var(--font-display); color: var(--ink);">$2,016</div>
+                    <div style="font-size: 13px; color: var(--ink-2);">42 hours</div>
+                </div>
+                <div style="display: flex; gap: 8px; align-items: flex-end; height: 100px; margin-top: 12px;">
+                    <div style="flex: 1; height: 30%; background: var(--accent-light); border-radius: 2px;"></div>
+                    <div style="flex: 1; height: 45%; background: var(--accent-light); border-radius: 2px;"></div>
+                    <div style="flex: 1; height: 55%; background: var(--accent-light); border-radius: 2px;"></div>
+                    <div style="flex: 1; height: 100%; background: var(--accent); border-radius: 2px;"></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 11px; color: var(--muted);">
+                    <span>wk 37</span>
+                    <span>wk 38</span>
+                    <span>wk 39</span>
+                    <span>wk 40</span>
+                </div>
+                <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--divider); font-size: 12px; color: var(--ink-2);">
+                    $192 of the $3,000 monthly cap used this month (6%)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

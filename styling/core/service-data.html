@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logging Management - Data</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        body {
+            background-color: #F5F1EE;
+        }
+
+        .page-header {
+            padding: 20px 0;
+            border-bottom: 1px solid #E6DED8;
+            margin-bottom: 30px;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0 0 8px 0;
+            color: #241C1A;
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: #6B605A;
+            margin: 0;
+        }
+
+        .instance-selector {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            color: #6B605A;
+        }
+
+        .instance-select {
+            padding: 6px 12px;
+            border: 1px solid #DCD2CB;
+            border-radius: 6px;
+            background-color: white;
+            color: #241C1A;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 32px;
+            border-bottom: 1px solid #E6DED8;
+            margin-bottom: 30px;
+            position: relative;
+            left: -20px;
+            padding-left: 20px;
+        }
+
+        .tab {
+            padding: 12px 0;
+            color: #6B605A;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .tab.active {
+            color: #241C1A;
+            border-bottom-color: #241C1A;
+        }
+
+        .tab:hover {
+            color: #241C1A;
+        }
+
+        .form-section {
+            background: white;
+            border: 1px solid #E6DED8;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .form-section-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #241C1A;
+        }
+
+        .form-section-subtitle {
+            font-size: 13px;
+            color: #6B605A;
+            margin-bottom: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 8px;
+            color: #241C1A;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #DCD2CB;
+            border-radius: 8px;
+            background-color: white;
+            color: #241C1A;
+            font-family: 'Figtree', sans-serif;
+            font-size: 14px;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #C2471F;
+            box-shadow: 0 0 0 2px #FFF4EE;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+
+        .form-help-text {
+            font-size: 12px;
+            color: #6B605A;
+            margin-top: 6px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 40px;
+        }
+
+        .btn-primary {
+            background-color: #241C1A;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #3D3530;
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: #241C1A;
+            border: 1px solid #DCD2CB;
+        }
+
+        .btn-secondary:hover {
+            background-color: #F5F1EE;
+        }
+
+        .service-status {
+            background-color: #F5F1EE;
+            border-left: 4px solid #C2471F;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .service-status-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #6B605A;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .service-status-text {
+            font-size: 13px;
+            color: #3D8A1C;
+            font-weight: 600;
+            font-family: 'Courier New', monospace;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .section-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                left: 0;
+                padding-left: 0;
+                gap: 16px;
+            }
+
+            .instance-selector {
+                position: static;
+                margin-top: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="instance-selector">
+            <span>INSTANCE:</span>
+            <select class="instance-select">
+                <option selected>default (default)</option>
+            </select>
+            <button style="background: none; border: none; cursor: pointer; color: #6B605A; padding: 0; font-size: 16px;">⟳</button>
+        </div>
+
+        <div class="page-header">
+            <h1 class="page-title">Logging Management</h1>
+            <p class="page-subtitle">Submit and manage log entries</p>
+        </div>
+
+        <div class="tabs">
+            <a href="#dashboard" class="tab">📊 Dashboard</a>
+            <a href="#data" class="tab active">📄 Data</a>
+            <a href="#settings" class="tab">⚙️ Settings</a>
+        </div>
+
+        <div class="section-layout">
+            <div>
+                <div class="form-section">
+                    <h3 class="form-section-title">Log Message</h3>
+                    <p class="form-section-subtitle">Submit a new log entry</p>
+
+                    <div class="form-group">
+                        <label class="form-label">Logging Level</label>
+                        <select class="form-control">
+                            <option selected>information</option>
+                            <option>debug</option>
+                            <option>warning</option>
+                            <option>error</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Message</label>
+                        <textarea class="form-control" placeholder="[ServiceName] Operation completed&#10;Descriptive text for the log entry (e.g., '[ServiceName] Fallback triggered')">[ServiceName] Operation completed
+Descriptive text for the log entry (e.g., '[ServiceName] Fallback triggered')</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Metadata (JSON)</label>
+                        <textarea class="form-control" placeholder="Optional JSON object with additional context (leave empty for no metadata)">{"provider": "redis","duration": 5000}</textarea>
+                    </div>
+
+                    <p class="form-help-text">Optional JSON object with additional context (leave empty for no metadata)</p>
+
+                    <div class="btn-group">
+                        <button class="btn btn-primary">Submit Log</button>
+                        <button class="btn btn-secondary">Format JSON</button>
+                        <button class="btn btn-secondary">Load Example</button>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3 class="form-section-title">Service Status</h3>
+                    <p class="form-section-subtitle">Check logging service status</p>
+
+                    <button class="btn btn-secondary" style="width: 100%; margin-bottom: 16px;">Check Status</button>
+
+                    <div class="service-status">
+                        <div class="service-status-label">SERVICE STATUS:</div>
+                        <div class="service-status-text">logging_api running</div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3 class="form-section-title">API Documentation</h3>
+                    <p class="form-section-subtitle">Interactive API documentation for Logging service</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

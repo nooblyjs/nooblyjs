@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Roster - Factory Teammates</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            display: flex;
+        }
+
+        .sidebar {
+            width: 160px;
+            background-color: var(--surface-sunken);
+            border-right: 1px solid var(--border);
+            min-height: 100vh;
+            padding: 20px 16px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 32px;
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 16px;
+            color: var(--ink);
+        }
+
+        .logo-circles {
+            display: flex;
+            gap: -6px;
+            position: relative;
+            width: 32px;
+            height: 16px;
+        }
+
+        .logo-circle {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+        }
+
+        .logo-circle-1 {
+            background-color: var(--accent);
+        }
+
+        .logo-circle-2 {
+            background-color: var(--teal);
+            margin-left: -6px;
+        }
+
+        .nav-item {
+            margin-bottom: 8px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: var(--radius-md);
+            color: var(--ink-2);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: var(--ink);
+        }
+
+        .nav-link.active {
+            background-color: var(--ink);
+            color: var(--on-ink);
+            font-weight: 600;
+        }
+
+        .main-content {
+            margin-left: 160px;
+            padding: var(--spacing-3xl);
+            background-color: var(--bg);
+            flex: 1;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .header h1 {
+            font-size: 44px;
+            font-weight: 800;
+            font-family: var(--font-display);
+            color: var(--ink);
+            margin-bottom: 8px;
+        }
+
+        .header-right {
+            display: flex;
+            gap: var(--spacing-md);
+            align-items: center;
+        }
+
+        .search-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 10px 14px;
+            width: 280px;
+            font-size: 14px;
+            color: var(--ink-2);
+        }
+
+        .btn-hire {
+            background-color: var(--accent);
+            color: white;
+            padding: 10px 18px;
+            border-radius: var(--radius-md);
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .summary-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+        }
+
+        .summary-label {
+            font-size: 12px;
+            color: var(--muted);
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .summary-value {
+            font-size: 36px;
+            font-weight: 800;
+            font-family: var(--font-display);
+            color: var(--ink);
+        }
+
+        .summary-detail {
+            font-size: 13px;
+            color: var(--ink-2);
+            margin-top: 8px;
+        }
+
+        .meter {
+            height: 8px;
+            background: var(--divider);
+            border-radius: 999px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .meter-fill {
+            height: 100%;
+            background: var(--accent);
+        }
+
+        .filter-pills {
+            display: flex;
+            gap: 8px;
+            margin-bottom: var(--spacing-lg);
+            flex-wrap: wrap;
+        }
+
+        .filter-pill {
+            padding: 8px 14px;
+            border-radius: var(--radius-full);
+            border: none;
+            background: var(--ink);
+            color: white;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .teammate-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .teammate-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            transition: all 0.2s ease;
+        }
+
+        .teammate-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
+        }
+
+        .teammate-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .teammate-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FFD7C2 0%, #FADBD8 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            font-weight: 700;
+        }
+
+        .teammate-info {
+            flex: 1;
+        }
+
+        .teammate-name {
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .teammate-role {
+            font-size: 13px;
+            color: var(--ink-2);
+        }
+
+        .status-pill {
+            background: var(--teal-soft);
+            color: var(--teal-text);
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--teal);
+        }
+
+        .teammate-task {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--ink-2);
+            margin: 12px 0;
+            padding-top: 12px;
+            border-top: 1px solid var(--divider);
+        }
+
+        .skills {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin: 12px 0;
+        }
+
+        .skill {
+            background: var(--chip);
+            color: var(--ink);
+            padding: 6px 10px;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            padding-top: 12px;
+            border-top: 1px dashed var(--divider);
+        }
+
+        .stat {
+            font-size: 12px;
+        }
+
+        .stat-label {
+            color: var(--muted);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--ink);
+        }
+
+        .hire-card {
+            background: var(--surface);
+            border: 2px dashed var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 300px;
+        }
+
+        .hire-icon {
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+
+        .hire-title {
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--ink);
+            margin-bottom: 8px;
+        }
+
+        .hire-desc {
+            font-size: 13px;
+            color: var(--ink-2);
+        }
+
+        .sidebar-footer {
+            position: absolute;
+            bottom: 20px;
+            left: 16px;
+            right: 16px;
+        }
+
+        .budget-mini {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 12px;
+            margin-bottom: 12px;
+            font-size: 12px;
+        }
+
+        .budget-label {
+            color: var(--muted);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .budget-meter {
+            height: 6px;
+            background: var(--divider);
+            border-radius: 999px;
+            overflow: hidden;
+            margin-bottom: 4px;
+        }
+
+        .budget-value {
+            color: var(--ink-2);
+            font-size: 11px;
+        }
+
+        .owner-block {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: var(--surface-sunken);
+            border-radius: var(--radius-md);
+        }
+
+        .owner-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: white;
+            font-weight: 700;
+        }
+
+        .owner-info {
+            font-size: 12px;
+        }
+
+        .owner-name {
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .owner-role {
+            color: var(--muted);
+            font-size: 11px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="logo">
+        <div class="logo-circles">
+            <div class="logo-circle logo-circle-1"></div>
+            <div class="logo-circle logo-circle-2"></div>
+        </div>
+        <span>Teammates</span>
+    </div>
+
+    <nav>
+        <div class="nav-item">
+            <a href="#" class="nav-link active">
+                <i class="bi bi-people"></i>
+                Team roster
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="bi bi-person"></i>
+                Profiles
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="bi bi-wallet"></i>
+                Billing & timesheets
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="bi bi-person-plus"></i>
+                Hire a teammate
+            </a>
+        </div>
+    </nav>
+
+    <div class="sidebar-footer">
+        <div class="budget-mini">
+            <div class="budget-label">October budget</div>
+            <div class="budget-meter">
+                <div class="budget-meter-fill" style="width: 3%; background: var(--accent);"></div>
+            </div>
+            <div class="budget-value">$264 of $9,000 used</div>
+        </div>
+
+        <div class="owner-block">
+            <div class="owner-avatar">S</div>
+            <div class="owner-info">
+                <div class="owner-name">Stevie</div>
+                <div class="owner-role">Team owner</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+    <div class="header">
+        <div>
+            <h1>Your digital teammates</h1>
+            <p style="font-size: 15px; color: var(--ink-2); margin: 0;">Eight agents on the team. Four are on a task right now.</p>
+        </div>
+        <div class="header-right">
+            <input type="text" class="search-box" placeholder="Search name, skill or model">
+            <button class="btn-hire">
+                <i class="bi bi-plus-lg"></i> Hire a teammate
+            </button>
+        </div>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="summary-grid">
+        <div class="summary-card">
+            <div class="summary-label">ON A TASK NOW</div>
+            <div class="summary-value">4 of 8</div>
+            <div style="display: flex; gap: 4px; margin-top: 12px;">
+                <div class="teammate-avatar" style="width: 40px; height: 40px; font-size: 20px;">A</div>
+                <div class="teammate-avatar" style="width: 40px; height: 40px; font-size: 20px; background: linear-gradient(135deg, #CDE7E4 0%, #B3D9D6 100%);">M</div>
+                <div class="teammate-avatar" style="width: 40px; height: 40px; font-size: 20px; background: linear-gradient(135deg, #E5DAF5 0%, #D4C4E8 100%);">J</div>
+                <div class="teammate-avatar" style="width: 40px; height: 40px; font-size: 20px; background: linear-gradient(135deg, #FBE6A6 0%, #F5DFA0 100%);">O</div>
+            </div>
+        </div>
+
+        <div class="summary-card">
+            <div class="summary-label">BILLED · LAST 30 DAYS</div>
+            <div class="summary-value">$6,814</div>
+            <div class="summary-detail">312 hours across 8 teammates</div>
+        </div>
+
+        <div class="summary-card">
+            <div class="summary-label">OCTOBER BUDGET</div>
+            <div class="summary-value">3%<span style="font-size: 20px;">used</span></div>
+            <div class="meter">
+                <div class="meter-fill" style="width: 3%;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Pills -->
+    <div class="filter-pills">
+        <button class="filter-pill">Everyone 8</button>
+        <button class="filter-pill">On a task 4</button>
+        <button class="filter-pill">Available 2</button>
+        <button class="filter-pill">Paused 1</button>
+        <button class="filter-pill">Off shift 1</button>
+    </div>
+
+    <!-- Teammate Grid -->
+    <div class="teammate-grid">
+        <!-- Teammate 1 -->
+        <div class="teammate-card">
+            <div class="teammate-header">
+                <div class="teammate-avatar">A</div>
+                <span class="status-pill"><span class="status-dot"></span>On a task</span>
+            </div>
+            <div class="teammate-info">
+                <div class="teammate-name">Ada Quill</div>
+                <div class="teammate-role">Research Analyst</div>
+            </div>
+            <div class="teammate-task">
+                <i class="bi bi-clock"></i>
+                Q4 competitor scan
+            </div>
+            <div class="skills">
+                <span class="skill">Deep research</span>
+                <span class="skill">Source checking</span>
+                <span class="skill">Market sizing</span>
+            </div>
+            <div class="stats-grid">
+                <div class="stat">
+                    <div class="stat-label">Model</div>
+                    <div class="stat-value">Claude Opus $$$</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Rate</div>
+                    <div class="stat-value">$48 / hr</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Billed in 30 days</div>
+                    <div class="stat-value">42h · $2,016</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Memory</div>
+                    <div class="stat-value">1,240 items</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Teammate 2 -->
+        <div class="teammate-card">
+            <div class="teammate-header">
+                <div class="teammate-avatar" style="background: linear-gradient(135deg, #CDE7E4 0%, #B3D9D6 100%);">M</div>
+                <span class="status-pill"><span class="status-dot"></span>On a task</span>
+            </div>
+            <div class="teammate-info">
+                <div class="teammate-name">Milo Brightwater</div>
+                <div class="teammate-role">Support Lead</div>
+            </div>
+            <div class="teammate-task">
+                <i class="bi bi-clock"></i>
+                Refund queue · 23 open
+            </div>
+            <div class="skills">
+                <span class="skill">Ticket triage</span>
+                <span class="skill">Refund policy</span>
+                <span class="skill">Tone matching</span>
+            </div>
+            <div class="stats-grid">
+                <div class="stat">
+                    <div class="stat-label">Model</div>
+                    <div class="stat-value">Claude Sonnet $$</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Rate</div>
+                    <div class="stat-value">$14 / hr</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Billed in 30 days</div>
+                    <div class="stat-value">96h · $1,344</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Memory</div>
+                    <div class="stat-value">3,810 items</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Teammate 3 -->
+        <div class="teammate-card">
+            <div class="teammate-header">
+                <div class="teammate-avatar" style="background: linear-gradient(135deg, #E5DAF5 0%, #D4C4E8 100%);">J</div>
+                <span class="status-pill"><span class="status-dot"></span>On a task</span>
+            </div>
+            <div class="teammate-info">
+                <div class="teammate-name">Juno Park</div>
+                <div class="teammate-role">Frontend Engineer</div>
+            </div>
+            <div class="teammate-task">
+                <i class="bi bi-clock"></i>
+                Checkout accessibility fixes
+            </div>
+            <div class="skills">
+                <span class="skill">React</span>
+                <span class="skill">Accessibility</span>
+                <span class="skill">Test writing</span>
+            </div>
+            <div class="stats-grid">
+                <div class="stat">
+                    <div class="stat-label">Model</div>
+                    <div class="stat-value">Claude Opus $$$</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Rate</div>
+                    <div class="stat-value">$52 / hr</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Billed in 30 days</div>
+                    <div class="stat-value">38h · $1,976</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Memory</div>
+                    <div class="stat-value">960 items</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hire Card -->
+        <div class="hire-card">
+            <div class="hire-icon">+</div>
+            <div class="hire-title">Hire a teammate</div>
+            <div class="hire-desc">Give them a name, a face, a model and the skills they need.</div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

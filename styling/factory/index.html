@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap 5 Components & Icons Showcase</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+    <!-- Factory Custom Styles -->
+    <link rel="stylesheet" href="../styles.css">
+
+    <style>
+        body {
+            padding-top: 60px;
+        }
+        .component-section {
+            margin-bottom: 50px;
+            padding: 30px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            background-color: var(--surface);
+        }
+        .component-title {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 10px;
+        }
+        .component-example {
+            margin-bottom: 20px;
+            padding: 20px;
+            background: var(--surface);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+        }
+        .example-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--muted);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#"><i class="bi bi-bootstrap"></i> Bootstrap 5 Showcase</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link active" href="#buttons">Buttons</a></li>
+                <li class="nav-item"><a class="nav-link" href="#forms">Forms</a></li>
+                <li class="nav-item"><a class="nav-link" href="#cards">Cards</a></li>
+                <li class="nav-item"><a class="nav-link" href="#tables">Tables</a></li>
+                <li class="nav-item"><a class="nav-link" href="#alerts">Alerts</a></li>
+                <li class="nav-item"><a class="nav-link" href="#modals">Modals</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+
+<!-- HERO SECTION -->
+<div class="jumbotron bg-light p-5 rounded mb-5">
+    <h1 class="display-4"><i class="bi bi-star-fill"></i> Bootstrap 5 Complete Component Library</h1>
+    <p class="lead">A comprehensive showcase of all Bootstrap 5 components with Bootstrap Icons.</p>
+    <hr class="my-4">
+    <p>This page demonstrates buttons, forms, cards, tables, alerts, badges, and more.</p>
+</div>
+
+<!-- BUTTONS SECTION -->
+<section id="buttons" class="component-section">
+    <h2 class="component-title"><i class="bi bi-hand-index"></i> Buttons</h2>
+
+    <div class="component-example">
+        <p class="example-title">Button Variants</p>
+        <button type="button" class="btn btn-primary">Primary</button>
+        <button type="button" class="btn btn-secondary">Secondary</button>
+        <button type="button" class="btn btn-success">Success</button>
+        <button type="button" class="btn btn-danger">Danger</button>
+        <button type="button" class="btn btn-warning">Warning</button>
+        <button type="button" class="btn btn-info">Info</button>
+        <button type="button" class="btn btn-light">Light</button>
+        <button type="button" class="btn btn-dark">Dark</button>
+    </div>
+
+    <div class="component-example">
+        <p class="example-title">Button Sizes</p>
+        <button type="button" class="btn btn-primary btn-lg">Large Button</button>
+        <button type="button" class="btn btn-primary">Normal Button</button>
+        <button type="button" class="btn btn-primary btn-sm">Small Button</button>
+    </div>
+
+    <div class="component-example">
+        <p class="example-title">Outline Buttons</p>
+        <button type="button" class="btn btn-outline-primary">Primary</button>
+        <button type="button" class="btn btn-outline-secondary">Secondary</button>
+        <button type="button" class="btn btn-outline-success">Success</button>
+        <button type="button" class="btn btn-outline-danger">Danger</button>
+    </div>
+
+    <div class="component-example">
+        <p class="example-title">Button Groups</p>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-primary">Left</button>
+            <button type="button" class="btn btn-primary">Middle</button>
+            <button type="button" class="btn btn-primary">Right</button>
+        </div>
+    </div>
+
+    <div class="component-example">
+        <p class="example-title">Buttons with Icons</p>
+        <button class="btn btn-primary"><i class="bi bi-download"></i> Download</button>
+        <button class="btn btn-success"><i class="bi bi-check-circle"></i> Save</button>
+        <button class="btn btn-danger"><i class="bi bi-trash"></i> Delete</button>
+        <button class="btn btn-info"><i class="bi bi-info-circle"></i> Info</button>
+    </div>
+</section>
+
+<!-- TYPOGRAPHY SECTION -->
+<section class="component-section">
+    <h2 class="component-title"><i class="bi bi-type"></i> Typography</h2>
+
+    <div class="component-example">
+        <h1 class="display-1">Display 1</h1>
+        <h2 class="display-2">Display 2</h2>
+        <h3 class="display-3">Display 3</h3>
+        <h4 class="display-4">Display 4</h4>
+    </div>
+
+    <div class="component-example">
+        <h1>Heading 1</h1>
+        <h2>Heading 2</h2>
+        <h3>Heading 3</h3>
+        <h4>Heading 4</h4>
+        <h5>Heading 5</h5>
+        <h6>Heading 6</h6>
+    </div>
+
+    <div class="component-example">
+        <p class="lead">This is a lead paragraph.</p>
+        <p>This is a normal paragraph with <strong>bold text</strong>, <em>italic text</em>, and <u>underlined text</u>.</p>
+        <mark>Highlighted text</mark>
+        <del>Deleted text</del>
+        <ins>Inserted text</ins>
+    </div>
+</section>
+
+<!-- BADGES & LABELS SECTION -->
+<section class="component-section">
+    <h2 class="component-title"><i class="bi bi-tags"></i> Badges & Labels</h2>
+
+    <div class="component-example">
+        <p class="example-title">Badge Variants</p>
+        <span class="badge bg-primary">Primary</span>
+        <span class="badge bg-secondary">Secondary</span>
+        <span class="badge bg-success">Success</span>
+        <span class="badge bg-danger">Danger</span>
+        <span class="badge bg-warning text-dark">Warning</span>
+        <span class="badge bg-info text-dark">Info</span>
+        <span class="badge bg-light text-dark">Light</span>
+        <span class="badge bg-dark">Dark</span>
+    </div>
+
+    <div class="component-example">
+        <p class="example-title">Pill Badges</p>
+        <span class="badge rounded-pill bg-primary">Primary</span>
+        <span class="badge rounded-pill bg-success">Success</span>
+        <span class="badge rounded-pill bg-danger">Danger</span>
+    </div>
+</section>
+
+<!-- ALERTS SECTION -->
+<section id="alerts" class="component-section">
+    <h2 class="component-title"><i class="bi bi-exclamation-triangle"></i> Alerts</h2>
+
+    <div class="alert alert-primary" role="alert">
+        <i class="bi bi-info-circle"></i> This is a primary alert.
+    </div>
+    <div class="alert alert-secondary" role="alert">
+        <i class="bi bi-info-circle"></i> This is a secondary alert.
+    </div>
+    <div class="alert alert-success" role="alert">
+        <i class="bi bi-check-circle"></i> <strong>Success!</strong> Your operation completed successfully.
+    </div>
+    <div class="alert alert-danger" role="alert">
+        <i class="bi bi-x-circle"></i> <strong>Danger!</strong> An error has occurred.
+    </div>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-triangle"></i> This alert can be dismissed.
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+</section>
+
+<!-- CARDS SECTION -->
+<section id="cards" class="component-section">
+    <h2 class="component-title"><i class="bi bi-card-list"></i> Cards</h2>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card Title</h5>
+                    <p class="card-text">Some quick example text to build on the card title.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Card without Image</h5>
+                    <p class="card-text">This card has no image.</p>
+                </div>
+                <div class="card-footer text-muted">
+                    Card footer
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-success">
+                <div class="card-header bg-success text-white">Featured</div>
+                <div class="card-body">
+                    <h5 class="card-title">Success Card</h5>
+                    <p class="card-text">This is a success-themed card.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FORMS SECTION -->
+<section id="forms" class="component-section">
+    <h2 class="component-title"><i class="bi bi-input-cursor"></i> Forms</h2>
+
+    <div class="component-example">
+        <p class="example-title">Text Input & Textarea</p>
+        <form>
+            <div class="mb-3">
+                <label for="formInput" class="form-label">Text Input</label>
+                <input type="text" class="form-control" id="formInput" placeholder="Enter text">
+            </div>
+            <div class="mb-3">
+                <label for="formTextarea" class="form-label">Textarea</label>
+                <textarea class="form-control" id="formTextarea" rows="3"></textarea>
+            </div>
+        </form>
+    </div>
+
+    <div class="component-example">
+        <p class="example-title">Input Types</p>
+        <form>
+            <div class="mb-3">
+                <label for="formEmail" class="form-label">Email Input</label>
+                <input type="email" class="form-control" id="formEmail">
+            </div>
+            <div class="mb-3">
+                <label for="formPassword" class="form-label">Password Input</label>
+                <input type="password" class="form-control" id="formPassword">
+            </div>
+            <div class="mb-3">
+                <label for="formNumber" class="form-label">Number Input</label>
+                <input type="number" class="form-control" id="formNumber">
+            </div>
+            <div class="mb-3">
+                <label for="formDate" class="form-label">Date Input</label>
+                <input type="date" class="form-control" id="formDate">
+            </div>
+        </form>
+    </div>
+
+    <div class="component-example">
+        <p class="example-title">Checkboxes & Radios</p>
+        <form>
+            <div class="mb-3">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="check1">
+                    <label class="form-check-label" for="check1">Checkbox 1</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="check2">
+                    <label class="form-check-label" for="check2">Checkbox 2</label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="radio" id="radio1">
+                    <label class="form-check-label" for="radio1">Radio 1</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="radio" id="radio2">
+                    <label class="form-check-label" for="radio2">Radio 2</label>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="component-example">
+        <p class="example-title">Select Dropdown</p>
+        <form>
+            <select class="form-select" aria-label="Default select example">
+                <option selected>Open this select menu</option>
+                <option value="1">Option One</option>
+                <option value="2">Option Two</option>
+                <option value="3">Option Three</option>
+            </select>
+        </form>
+    </div>
+
+    <div class="component-example">
+        <p class="example-title">Input Groups</p>
+        <div class="input-group mb-3">
+            <span class="input-group-text">@</span>
+            <input type="text" class="form-control" placeholder="Username">
+        </div>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Price">
+            <span class="input-group-text">.00</span>
+        </div>
+        <div class="input-group">
+            <button class="btn btn-outline-secondary" type="button">Button</button>
+            <input type="text" class="form-control" placeholder="Search">
+        </div>
+    </div>
+
+    <div class="component-example">
+        <p class="example-title">Form States</p>
+        <form>
+            <div class="mb-3">
+                <label for="formValid" class="form-label">Valid Input</label>
+                <input type="text" class="form-control is-valid" id="formValid" value="Valid input">
+            </div>
+            <div class="mb-3">
+                <label for="formInvalid" class="form-label">Invalid Input</label>
+                <input type="text" class="form-control is-invalid" id="formInvalid" value="Invalid input">
+            </div>
+            <div class="mb-3">
+                <label for="formDisabled" class="form-label">Disabled Input</label>
+                <input type="text" class="form-control" id="formDisabled" placeholder="Disabled input" disabled>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- PROGRESS BARS SECTION -->
+<section class="component-section">
+    <h2 class="component-title"><i class="bi bi-hourglass-split"></i> Progress Bars</h2>
+
+    <div class="component-example">
+        <p class="example-title">Basic Progress Bar</p>
+        <div class="progress">
+            <div class="progress-bar" style="width: 25%"></div>
+        </div>
+    </div>
+
+    <div class="component-example">
+        <p class="example-title">Colored Progress Bars</p>
+        <div class="progress mb-2">
+            <div class="progress-bar bg-success" style="width: 75%"></div>
+        </div>
+        <div class="progress mb-2">
+            <div class="progress-bar bg-info" style="width: 50%"></div>
+        </div>
+        <div class="progress mb-2">
+            <div class="progress-bar bg-warning" style="width: 75%"></div>
+        </div>
+        <div class="progress mb-2">
+            <div class="progress-bar bg-danger" style="width: 100%"></div>
+        </div>
+    </div>
+
+    <div class="component-example">
+        <p class="example-title">Striped Progress Bars</p>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped" style="width: 75%"></div>
+        </div>
+    </div>
+
+    <div class="component-example">
+        <p class="example-title">Animated Progress Bar</p>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 75%"></div>
+        </div>
+    </div>
+</section>
+
+<!-- SPINNERS SECTION -->
+<section class="component-section">
+    <h2 class="component-title"><i class="bi bi-arrow-clockwise"></i> Spinners & Loaders</h2>
+
+    <div class="component-example">
+        <p class="example-title">Border Spinners</p>
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-border text-success" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-border text-danger" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <div class="component-example">
+        <p class="example-title">Growing Spinners</p>
+        <div class="spinner-grow" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="spinner-grow text-success" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+</section>
+
+<!-- TABLES SECTION -->
+<section id="tables" class="component-section">
+    <h2 class="component-title"><i class="bi bi-table"></i> Tables</h2>
+
+    <div class="component-example">
+        <p class="example-title">Basic Table</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Handle</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="component-example">
+        <p class="example-title">Striped & Hover Table</p>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Product</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Product A</td>
+                    <td>$19.99</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Product B</td>
+                    <td>$29.99</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Product C</td>
+                    <td>$39.99</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="component-example">
+        <p class="example-title">Dark Table</p>
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>John</td>
+                    <td>Active</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Jane</td>
+                    <td>Inactive</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- BREADCRUMBS & PAGINATION SECTION -->
+<section class="component-section">
+    <h2 class="component-title"><i class="bi bi-collection"></i> Navigation</h2>
+
+    <div class="component-example">
+        <p class="example-title">Breadcrumbs</p>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Library</a></li>
+                <li class="breadcrumb-item active">Data</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="component-example">
+        <p class="example-title">Pagination</p>
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </nav>
+    </div>
+</section>
+
+<!-- DROPDOWNS & MODALS SECTION -->
+<section id="modals" class="component-section">
+    <h2 class="component-title"><i class="bi bi-window"></i> Dropdowns & Modals</h2>
+
+    <div class="component-example">
+        <p class="example-title">Dropdown Menu</p>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                Dropdown button
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Separated link</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="component-example">
+        <p class="example-title">Modal</p>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Launch Modal
+        </button>
+    </div>
+</section>
+
+<!-- TOOLTIP & POPOVER SECTION -->
+<section class="component-section">
+    <h2 class="component-title"><i class="bi bi-chat-dots"></i> Tooltips & Popovers</h2>
+
+    <div class="component-example">
+        <p class="example-title">Tooltips</p>
+        <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">
+            Tooltip Top
+        </button>
+        <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="right" title="Tooltip on right">
+            Tooltip Right
+        </button>
+        <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tooltip on bottom">
+            Tooltip Bottom
+        </button>
+    </div>
+
+    <div class="component-example">
+        <p class="example-title">Popovers</p>
+        <button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" title="Popover title" data-bs-content="Popover content">
+            Click to toggle popover
+        </button>
+    </div>
+</section>
+
+<!-- GRID SECTION -->
+<section class="component-section">
+    <h2 class="component-title"><i class="bi bi-grid-3x2-gap"></i> Grid System</h2>
+
+    <div class="component-example">
+        <p class="example-title">Responsive Columns</p>
+        <div class="row mb-3">
+            <div class="col-12 col-md-6 col-lg-3 p-2" style="background: #e3f2fd; border: 1px solid #90caf9;">
+                <p class="m-0">Col 1</p>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3 p-2" style="background: #f3e5f5; border: 1px solid #ce93d8;">
+                <p class="m-0">Col 2</p>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3 p-2" style="background: #e8f5e9; border: 1px solid #81c784;">
+                <p class="m-0">Col 3</p>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3 p-2" style="background: #fff3e0; border: 1px solid #ffb74d;">
+                <p class="m-0">Col 4</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- UTILITIES SECTION -->
+<section class="component-section">
+    <h2 class="component-title"><i class="bi bi-wrench"></i> Utilities & Spacing</h2>
+
+    <div class="component-example">
+        <p class="example-title">Margin & Padding</p>
+        <div class="p-3 mb-3" style="background: #e3f2fd;">Padding: 3</div>
+        <div class="m-3 p-2" style="background: #f3e5f5;">Margin: 3, Padding: 2</div>
+    </div>
+
+    <div class="component-example">
+        <p class="example-title">Text Alignment & Colors</p>
+        <p class="text-center">Center aligned text</p>
+        <p class="text-end">End aligned text</p>
+        <p class="text-primary">Primary text</p>
+        <p class="text-success">Success text</p>
+        <p class="text-danger">Danger text</p>
+    </div>
+
+    <div class="component-example">
+        <p class="example-title">Shadows & Borders</p>
+        <div class="p-3 mb-2 shadow">Box with shadow</div>
+        <div class="p-3 mb-2 border">Box with border</div>
+        <div class="p-3 rounded bg-light">Rounded corners</div>
+    </div>
+</section>
+
+<!-- ICONS SECTION -->
+<section class="component-section">
+    <h2 class="component-title"><i class="bi bi-palette"></i> Bootstrap Icons</h2>
+
+    <div class="component-example">
+        <p class="example-title">Common Icons (25+)</p>
+        <div style="font-size: 32px;">
+            <i class="bi bi-house" style="margin-right: 15px;"></i>
+            <i class="bi bi-gear" style="margin-right: 15px;"></i>
+            <i class="bi bi-search" style="margin-right: 15px;"></i>
+            <i class="bi bi-heart" style="margin-right: 15px;"></i>
+            <i class="bi bi-star" style="margin-right: 15px;"></i>
+            <i class="bi bi-user" style="margin-right: 15px;"></i>
+            <i class="bi bi-file" style="margin-right: 15px;"></i>
+            <i class="bi bi-folder" style="margin-right: 15px;"></i>
+            <br><br>
+            <i class="bi bi-download" style="margin-right: 15px;"></i>
+            <i class="bi bi-upload" style="margin-right: 15px;"></i>
+            <i class="bi bi-trash" style="margin-right: 15px;"></i>
+            <i class="bi bi-check" style="margin-right: 15px;"></i>
+            <i class="bi bi-x" style="margin-right: 15px;"></i>
+            <i class="bi bi-arrow-left" style="margin-right: 15px;"></i>
+            <i class="bi bi-arrow-right" style="margin-right: 15px;"></i>
+            <i class="bi bi-chevron-up" style="margin-right: 15px;"></i>
+            <br><br>
+            <i class="bi bi-bell" style="margin-right: 15px;"></i>
+            <i class="bi bi-envelope" style="margin-right: 15px;"></i>
+            <i class="bi bi-phone" style="margin-right: 15px;"></i>
+            <i class="bi bi-calendar" style="margin-right: 15px;"></i>
+            <i class="bi bi-clock" style="margin-right: 15px;"></i>
+            <i class="bi bi-camera" style="margin-right: 15px;"></i>
+            <i class="bi bi-image" style="margin-right: 15px;"></i>
+            <i class="bi bi-video" style="margin-right: 15px;"></i>
+            <i class="bi bi-music-note" style="margin-right: 15px;"></i>
+        </div>
+    </div>
+
+    <div class="component-example">
+        <p class="example-title">Icon Sizes</p>
+        <i class="bi bi-star" style="font-size: 16px; margin-right: 15px;"></i>
+        <i class="bi bi-star" style="font-size: 24px; margin-right: 15px;"></i>
+        <i class="bi bi-star" style="font-size: 32px; margin-right: 15px;"></i>
+        <i class="bi bi-star" style="font-size: 48px; margin-right: 15px;"></i>
+    </div>
+
+    <div class="component-example">
+        <p class="example-title">Colored Icons</p>
+        <i class="bi bi-heart-fill" style="color: red; font-size: 32px; margin-right: 15px;"></i>
+        <i class="bi bi-check-circle-fill" style="color: green; font-size: 32px; margin-right: 15px;"></i>
+        <i class="bi bi-exclamation-triangle-fill" style="color: orange; font-size: 32px; margin-right: 15px;"></i>
+        <i class="bi bi-x-circle-fill" style="color: red; font-size: 32px; margin-right: 15px;"></i>
+    </div>
+</section>
+
+<!-- LIST SECTION -->
+<section class="component-section">
+    <h2 class="component-title"><i class="bi bi-list"></i> Lists</h2>
+
+    <div class="component-example">
+        <p class="example-title">Unordered List</p>
+        <ul class="list-unstyled">
+            <li><i class="bi bi-check"></i> Item one</li>
+            <li><i class="bi bi-check"></i> Item two</li>
+            <li><i class="bi bi-check"></i> Item three</li>
+        </ul>
+    </div>
+
+    <div class="component-example">
+        <p class="example-title">List Group</p>
+        <ul class="list-group">
+            <li class="list-group-item">Item 1</li>
+            <li class="list-group-item">Item 2</li>
+            <li class="list-group-item active">Active Item</li>
+            <li class="list-group-item">Item 4</li>
+        </ul>
+    </div>
+
+    <div class="component-example">
+        <p class="example-title">List Group with Badges</p>
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Inbox <span class="badge bg-primary rounded-pill">14</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Sent <span class="badge bg-secondary rounded-pill">5</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Drafts <span class="badge bg-danger rounded-pill">2</span>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-dark text-white text-center py-4 mt-5">
+    <p>&copy; 2024 Bootstrap 5 Component Showcase | Powered by Bootstrap 5 & Bootstrap Icons</p>
+</footer>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal Title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>This is a Bootstrap 5 modal dialog. Click the close button or outside to dismiss.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap 5 JS Bundle (includes Popper) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Enable tooltips
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+
+    // Enable popovers
+    const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+    popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl);
+    });
+</script>
+
+</body>
+</html>

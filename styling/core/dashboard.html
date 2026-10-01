@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Registry Dashboard</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background-color: #F5F1EE;
+            margin: 0;
+        }
+
+        .navbar {
+            background-color: #3C3A38;
+            color: white;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            margin: 0;
+            border: none;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+
+        .navbar-brand-icon {
+            width: 32px;
+            height: 32px;
+            background: white;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: #3C3A38;
+            font-size: 18px;
+        }
+
+        .navbar-brand-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .navbar-brand-main {
+            font-size: 16px;
+        }
+
+        .navbar-brand-sub {
+            font-size: 11px;
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .navbar-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+        }
+
+        .navbar-user-avatar {
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .container-fluid {
+            display: flex;
+            min-height: calc(100vh - 64px);
+        }
+
+        .sidebar {
+            width: 220px;
+            background-color: #F5F1EE;
+            border-right: 1px solid #E6DED8;
+            padding: 20px 0;
+            overflow-y: auto;
+        }
+
+        .sidebar-section {
+            padding: 0 12px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #6B605A;
+            letter-spacing: 0.5px;
+            padding: 0 12px;
+            margin-bottom: 12px;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            color: #4A3F3A;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            margin-bottom: 4px;
+        }
+
+        .sidebar-item:hover {
+            background-color: rgba(194, 71, 31, 0.1);
+            color: #C2471F;
+        }
+
+        .sidebar-item.active {
+            background-color: rgba(194, 71, 31, 0.15);
+            color: #241C1A;
+            font-weight: 600;
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #10B981;
+            display: inline-block;
+            margin-left: auto;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, #4C5A6E 0%, #3C4D5E 100%);
+            color: white;
+            padding: 32px;
+            border-radius: 12px;
+            margin-bottom: 32px;
+        }
+
+        .dashboard-header-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.8;
+            margin-bottom: 8px;
+        }
+
+        .dashboard-header-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .dashboard-header-subtitle {
+            font-size: 15px;
+            opacity: 0.9;
+        }
+
+        .monitoring-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #241C1A;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .monitoring-title::before {
+            content: '📊';
+            font-size: 16px;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .chart-card {
+            background: white;
+            border: 1px solid #E6DED8;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        }
+
+        .chart-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .chart-card-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #241C1A;
+        }
+
+        .chart-card-icon {
+            width: 24px;
+            height: 24px;
+            background: rgba(194, 71, 31, 0.1);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 200px;
+            margin-bottom: 12px;
+        }
+
+        .chart-footer {
+            font-size: 12px;
+            color: #6B605A;
+            text-align: center;
+        }
+
+        @media (max-width: 1200px) {
+            .charts-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container-fluid {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #E6DED8;
+                display: flex;
+                overflow-x: auto;
+                padding: 12px;
+            }
+
+            .sidebar-section {
+                display: flex;
+                gap: 12px;
+                margin-bottom: 0;
+            }
+
+            .sidebar-item {
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-brand">
+            <div class="navbar-brand-icon">N</div>
+            <div class="navbar-brand-text">
+                <div class="navbar-brand-main">NooblyJS</div>
+                <div class="navbar-brand-sub">SERVICES</div>
+            </div>
+        </div>
+        <div class="navbar-user">
+            <span>Administrator</span>
+            <div class="navbar-user-avatar">A</div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-item">
+                    🏠 Home
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">INFRASTRUCTURE</div>
+                <div class="sidebar-item">
+                    📋 Logging
+                    <span class="status-indicator"></span>
+                </div>
+                <div class="sidebar-item">
+                    ⚡ Caching
+                    <span class="status-indicator"></span>
+                </div>
+                <div class="sidebar-item">
+                    📤 Queueing
+                    <span class="status-indicator"></span>
+                </div>
+                <div class="sidebar-item">
+                    🔗 Fetching
+                    <span class="status-indicator"></span>
+                </div>
+                <div class="sidebar-item">
+                    ⚙️ Settings
+                    <span class="status-indicator"></span>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">BUSINESS</div>
+                <div class="sidebar-item">
+                    🔔 Notifications
+                    <span class="status-indicator"></span>
+                </div>
+                <div class="sidebar-item">
+                    📊 Data Service
+                    <span class="status-indicator"></span>
+                </div>
+                <div class="sidebar-item">
+                    🔄 Working
+                    <span class="status-indicator"></span>
+                </div>
+                <div class="sidebar-item">
+                    📏 Measuring
+                    <span class="status-indicator"></span>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">APPLICATION</div>
+                <div class="sidebar-item">
+                    📅 Scheduling
+                    <span class="status-indicator"></span>
+                </div>
+                <div class="sidebar-item">
+                    🔍 Searching
+                    <span class="status-indicator"></span>
+                </div>
+                <div class="sidebar-item">
+                    ➡️ Workflows
+                    <span class="status-indicator"></span>
+                </div>
+                <div class="sidebar-item">
+                    📁 Filing
+                    <span class="status-indicator"></span>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">ADVANCED</div>
+                <div class="sidebar-item">
+                    🔐 Authentication
+                    <span class="status-indicator"></span>
+                </div>
+                <div class="sidebar-item">
+                    🤖 AI Service
+                    <span class="status-indicator"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="dashboard-header">
+                <div class="dashboard-header-label">SYSTEM OVERVIEW</div>
+                <h1 class="dashboard-header-title">Service Registry Dashboard</h1>
+                <p class="dashboard-header-subtitle">Real-time monitoring of all available services and system performance metrics</p>
+            </div>
+
+            <div class="monitoring-title">System Monitoring</div>
+
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-card-header">
+                        <div class="chart-card-title">RAM Usage</div>
+                        <div class="chart-card-icon">🧠</div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="ramChart"></canvas>
+                    </div>
+                    <div class="chart-footer">3286 MB / 7541 MB (41%)</div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-card-header">
+                        <div class="chart-card-title">CPU Usage</div>
+                        <div class="chart-card-icon">⚙️</div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="cpuChart"></canvas>
+                    </div>
+                    <div class="chart-footer">17% (2 cores)</div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-card-header">
+                        <div class="chart-card-title">Active Handles</div>
+                        <div class="chart-card-icon">📊</div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="handlesChart"></canvas>
+                    </div>
+                    <div class="chart-footer">Handles: 21 | Requests: 0</div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-card-header">
+                        <div class="chart-card-title">Event Loop Lag</div>
+                        <div class="chart-card-icon">⚡</div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="loopLagChart"></canvas>
+                    </div>
+                    <div class="chart-footer">🟢 Good - Current: 1.00ms</div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-card-header">
+                        <div class="chart-card-title">Garbage Collection</div>
+                        <div class="chart-card-icon">🗑️</div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="gcChart"></canvas>
+                    </div>
+                    <div class="chart-footer">Events: 17 | Latest: 0.57ms</div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-card-header">
+                        <div class="chart-card-title">Heap Memory</div>
+                        <div class="chart-card-icon">💾</div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="heapChart"></canvas>
+                    </div>
+                    <div class="chart-footer">Total: 30MB | Executable: null MB</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const chartColor = '#2B7F86';
+        const chartBg = 'rgba(43, 127, 134, 0.1)';
+
+        // RAM Usage
+        const ramCtx = document.getElementById('ramChart').getContext('2d');
+        new Chart(ramCtx, {
+            type: 'line',
+            data: {
+                labels: Array.from({length: 20}, (_, i) => ''),
+                datasets: [{
+                    label: 'RAM (MB)',
+                    data: [3200, 3100, 3150, 3180, 3200, 3190, 3170, 3160, 3150, 3140, 3130, 3120, 3110, 3100, 3095, 3090, 3085, 3080, 3075, 3070],
+                    borderColor: chartColor,
+                    backgroundColor: chartBg,
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 0,
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: { y: { min: 0, max: 4000 }, x: { display: false } }
+            }
+        });
+
+        // CPU Usage
+        const cpuCtx = document.getElementById('cpuChart').getContext('2d');
+        new Chart(cpuCtx, {
+            type: 'line',
+            data: {
+                labels: Array.from({length: 20}, (_, i) => ''),
+                datasets: [{
+                    label: 'CPU (%)',
+                    data: [20, 19, 18, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 18, 19, 20],
+                    borderColor: '#3B82F6',
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 0,
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: { y: { min: 0, max: 100 }, x: { display: false } }
+            }
+        });
+
+        // Active Handles
+        const handlesCtx = document.getElementById('handlesChart').getContext('2d');
+        new Chart(handlesCtx, {
+            type: 'line',
+            data: {
+                labels: Array.from({length: 20}, (_, i) => ''),
+                datasets: [{
+                    label: 'Handles',
+                    data: [5, 5, 6, 7, 8, 10, 12, 15, 18, 20, 21, 21, 20, 18, 16, 14, 12, 10, 8, 6],
+                    borderColor: '#F59E0B',
+                    backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 0,
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: { y: { min: 0, max: 25 }, x: { display: false } }
+            }
+        });
+
+        // Event Loop Lag
+        const loopLagCtx = document.getElementById('loopLagChart').getContext('2d');
+        new Chart(loopLagCtx, {
+            type: 'line',
+            data: {
+                labels: Array.from({length: 20}, (_, i) => ''),
+                datasets: [{
+                    label: 'Lag (ms)',
+                    data: [0.2, 0.3, 0.25, 0.4, 0.5, 0.6, 0.8, 40, 60, 50, 0.5, 0.3, 0.2, 0.25, 0.3, 0.2, 0.25, 0.3, 0.25, 0.3],
+                    borderColor: '#6B7280',
+                    backgroundColor: 'rgba(107, 114, 128, 0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 0,
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: { y: { min: 0, max: 60 }, x: { display: false } }
+            }
+        });
+
+        // Garbage Collection
+        const gcCtx = document.getElementById('gcChart').getContext('2d');
+        new Chart(gcCtx, {
+            type: 'bar',
+            data: {
+                labels: Array.from({length: 15}, (_, i) => i),
+                datasets: [{
+                    label: 'GC Events',
+                    data: [1, 2, 3, 9, 4, 2, 3, 8, 5, 3, 2, 1, 0, 1, 0],
+                    backgroundColor: '#10B981',
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: { y: { min: 0, max: 10 }, x: { display: false } }
+            }
+        });
+
+        // Heap Memory
+        const heapCtx = document.getElementById('heapChart').getContext('2d');
+        new Chart(heapCtx, {
+            type: 'line',
+            data: {
+                labels: Array.from({length: 20}, (_, i) => ''),
+                datasets: [{
+                    label: 'Heap (MB)',
+                    data: [25, 25, 26, 26, 27, 27, 28, 28, 29, 29, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30],
+                    borderColor: '#8B5CF6',
+                    backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 0,
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: { y: { min: 20, max: 35 }, x: { display: false } }
+            }
+        });
+    </script>
+</body>
+</html>
